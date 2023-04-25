@@ -1,0 +1,47 @@
+﻿@model List<Customer>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Customer Manager";
+    ViewData["SelectedCategory"] = "Customer";
+
+    string visibility = "";
+    string success = "";
+
+    if (TempData.Peek("Success") == null)
+    {
+        visibility = "d-none";
+    }
+    else
+    {
+        success = @TempData["Success"].ToString();
+    }
+}
+
+<h1>@ViewData["Title"]</h1>
+<div id="alert" class="alert alert-success @visibility">@success</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th> <th>Email</th> <th>City</th> <th></th> <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach(var customer in Model)
+            {
+                <tr>
+                    <td>@customer.FirstName @customer.LastName</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.City</td>
+                    <td><a asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.CustomerID"  class="btn btn-primary">Edit</a></td>
+                    <td><a asp-controller="Customer" asp-action="Delete"  asp-route-id="@customer.CustomerID" class="btn btn-primary">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+<a asp-controller="Customer" asp-action="Add" class="btn btn-primary">Add Customer</a>

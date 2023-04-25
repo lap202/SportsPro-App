@@ -1,0 +1,42 @@
+﻿@model List<Technician>
+@{
+    Layout = "_Layout";
+    TempData["Title"] = "Technician Manager";
+    ViewData["SelectedCategory"] = "Technician";
+
+    string visibility = "";
+    string success = "";
+
+    if (TempData.Peek("Success") == null)
+    {
+        visibility = "d-none";
+    }
+    else
+    {
+        success = @TempData["Success"].ToString();
+    }
+}
+
+<h1>@ViewData["Title"]</h1>
+<div id="alert" class="alert alert-success @visibility"> @success </div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr><th>Code</th><th>Name</th><th>Price</th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var technician in Model)
+            {
+                        <tr>
+                            <td>@technician.Name</td>
+                            <td>@technician.Email</td>
+                            <td>@technician.Phone</td>
+                            <td><a asp-controller="Technician" asp-action="Edit" asp-route-id="@technician.TechnicianID" class="btn btn-primary">Edit</a></td>
+                            <td><a asp-controller="Technician" asp-action="Delete" asp-route-id="@technician.TechnicianID" class="btn btn-primary">Delete</a></td>
+                        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Technician" asp-action="Add" class="btn btn-primary">Add Technician</a>

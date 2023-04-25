@@ -1,0 +1,61 @@
+﻿@model IncidentManagerViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Incident Manager";
+    ViewData["SelectedCategory"] = "Incident";
+
+    string visibility = "";
+    string success = "";
+
+    if (TempData.Peek("Success") == null)
+    {
+        visibility = "d-none";
+    }
+    else
+    {
+        success = @TempData["Success"].ToString();
+    }
+}
+
+<h1>@ViewData["Title"]</h1>
+<div id="alert" class="alert alert-success @visibility">@success</div>
+
+
+    <nav class ="nav nav-pills m-2">
+    <a class="nav-link @(Model.Filter == "all" ? "active" : "")" asp-controller="Incident" asp-action="List">All incidents</a>
+    <a class="nav-link @(Model.Filter == "noTech" ? "active" : "")" asp-controller="Incident" asp-action="List" asp-route-filter="noTech">Unassigned incidents</a>
+    <a class="nav-link @(Model.Filter == "open" ? "active" : "")" asp-controller="Incident" asp-action="List" asp-route-filter="open">Open incidents</a>
+    </nav>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th> <th>Customer</th> <th>Product</th> <th>Date Opened</th> <th></th> <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach(var incident in Model.Incidents)
+            {
+                string activeFlag = "";
+
+                if (incident.Customer.Active == false)
+                {
+                    activeFlag = " (Inactive)";
+                }
+                <tr>
+                    <td>@incident.Title</td>
+                    <td>@incident.Customer.FirstName @incident.Customer.LastName @activeFlag</td>
+                    <td>@incident.Product.Name</td>
+                    <td>@incident.DateOpened.ToString()</td>
+                    <td><a asp-controller="Incident" asp-action="Edit" asp-route-id="@incident.IncidentID"  class="btn btn-primary">Edit</a></td>
+                    <td><a asp-controller="Incident" asp-action="Delete"  asp-route-id="@incident.IncidentID" class="btn btn-primary">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+<a asp-controller="Incident" asp-action="Add" class="btn btn-primary">Add Incident</a>

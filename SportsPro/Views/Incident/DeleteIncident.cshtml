@@ -1,0 +1,30 @@
+﻿@model Incident
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Delete Incident";
+    ViewData["SelectedCategory"] = "Incident";
+}
+<h1>@ViewData["Title"]</h1>
+<br />
+<h3>Title: @Model.Title</h3>
+<h4>Product: @Model.Product.Name</h4>
+<h4>Customer: @Model.Customer.FullName</h4>
+<h4>Date Opened: @Model.DateOpened</h4>
+<br />
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="IncidentID" />
+    <input type="hidden" asp-for="CustomerID" />
+    <input type="hidden" asp-for="Customer" />
+    <input type="hidden" asp-for="ProductID" />
+    <input type="hidden" asp-for="Product" />
+    <input type="hidden" asp-for="TechnicianID" />
+    <input type="hidden" asp-for="Technician" />
+    <input type="hidden" asp-for="Title" />
+    <input type="hidden" asp-for="Description" />
+    <input type="hidden" asp-for="DateOpened" />
+    <input type="hidden" asp-for="DateClosed" />
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-action="List" class="btn btn-primary">Cancel</a>
+</form>

@@ -1,0 +1,16 @@
+﻿@model List<Customer>
+@{
+    Layout = "_Layout";
+}
+
+<h1>Get Customer</h1>
+<form asp-action="GetRegistrations" method="post">
+    <select name="id" class="custom-select">
+        @foreach (Customer c in Model)
+        {
+            string name = c.FirstName + " " + c.LastName;
+            <option value=@c.CustomerID>@name</option>
+        }
+    </select>
+    <input class="btn btn-primary mt-2" type="submit" value="Select"/>
+</form>

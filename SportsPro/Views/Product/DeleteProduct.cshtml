@@ -1,0 +1,19 @@
+﻿@model Product
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Delete Product";
+    ViewData["SelectedCategory"] = "Product";
+}
+<h1>@ViewData["Title"]</h1>
+<h3>@Model.Name</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ProductID" />
+    <input type="hidden" asp-for="Name" />
+    <input type="hidden" asp-for="ProductCode" />
+    <input type="hidden" asp-for="YearlyPrice" />
+    <input type="hidden" asp-for="ReleaseDate" />
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-action="List" class="btn btn-primary">Cancel</a>
+</form>

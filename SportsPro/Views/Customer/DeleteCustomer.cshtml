@@ -1,0 +1,26 @@
+﻿@model Customer
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Delete Customer";
+    ViewData["SelectedCategory"] = "Customer";
+}
+<h1>@ViewData["Title"]</h1>
+<h3>@Model.FullName</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CustomerID" />
+    <input type="hidden" asp-for="FirstName" />
+    <input type="hidden" asp-for="LastName" />
+    <input type="hidden" asp-for="Address" />
+    <input type="hidden" asp-for="City" />
+    <input type="hidden" asp-for="State" />
+    <input type="hidden" asp-for="PostalCode" />
+    <input type="hidden" asp-for="CountryID" />
+    <input type="hidden" asp-for="Country" />
+    <input type="hidden" asp-for="Phone" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="FullName" />
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Delete" asp-action="List" class="btn btn-primary">Cancel</a>
+</form>

@@ -1,0 +1,13 @@
+﻿@model List<Technician>
+@{
+    Layout = "_Layout";
+    TempData["Title"] = "Get Technician";
+}
+
+<h1>Technician</h1>
+<form asp-action="List">
+    <select name="TechnicianId" asp-items="@(new SelectList(Model,"TechnicianID", "Name"))"
+            class="form-control">
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Select</button>
+</form>
